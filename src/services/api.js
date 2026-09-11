@@ -1,8 +1,10 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 
+const apiBaseUrl = import.meta.env.VITE_API_URL || '/api'
+
 export const api = createApi({
   reducerPath: 'api',
-  baseQuery: fetchBaseQuery({ baseUrl: '/api', credentials: 'include' }),
+  baseQuery: fetchBaseQuery({ baseUrl: apiBaseUrl.replace(/\/$/, ''), credentials: 'include' }),
   tagTypes: ['Auth', 'Attendance', 'Overtime'],
   endpoints: (builder) => ({
     me: builder.query({ query: () => '/auth/me', providesTags: ['Auth'] }),
